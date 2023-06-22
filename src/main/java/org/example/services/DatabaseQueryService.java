@@ -1,4 +1,7 @@
-package org.example;
+package org.example.services;
+
+import org.example.Database;
+import org.example.models.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -46,14 +49,14 @@ public class DatabaseQueryService {
         return workers;
     }
 
-    private List<YoungestAndOldestWorker> executeYoungestAndOldestWorkersQuery(String sqlQuery) {
-        List<YoungestAndOldestWorker> workers = new ArrayList<>();
+    private List<YoungestAndEldestWorker> executeYoungestAndOldestWorkersQuery(String sqlQuery) {
+        List<YoungestAndEldestWorker> workers = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
                 String birthday = resultSet.getDate("birthday").toString();
-                YoungestAndOldestWorker worker = new YoungestAndOldestWorker(name, birthday);
+                YoungestAndEldestWorker worker = new YoungestAndEldestWorker(name, birthday);
                 workers.add(worker);
             }
         } catch (SQLException e) {
@@ -110,7 +113,7 @@ public class DatabaseQueryService {
         return executeMaxSalaryWorkersQuery(sqlQuery);
     }
 
-    public List<YoungestAndOldestWorker> findYoungestAndOldestWorkers() {
+    public List<YoungestAndEldestWorker> findYoungestAndOldestWorkers() {
         String sqlFilePath = SQL_DIRECTORY + "find_youngest_oldest_workers.sql";
         String sqlQuery = readSqlQueryFromFile(sqlFilePath);
         return executeYoungestAndOldestWorkersQuery(sqlQuery);

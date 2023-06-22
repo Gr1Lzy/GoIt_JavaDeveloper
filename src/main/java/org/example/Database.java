@@ -34,7 +34,7 @@ public class Database {
         }
     }
 
-    void executeSqlFile(Database database, Connection connection, String fileName) {
+    public void executeSqlFile(Database database, Connection connection, String fileName) {
         try {
             String sqlFile = "src/main/resources/sql/"+fileName;
             String sql = readFile(sqlFile);

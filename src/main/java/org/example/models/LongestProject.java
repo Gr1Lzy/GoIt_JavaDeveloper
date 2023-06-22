@@ -1,11 +1,11 @@
-package org.example;
+package org.example.models;
 
 public class LongestProject {
-    private int id;
-    private int clientId;
-    private String startDate;
-    private String finishDate;
-    private int durationMonths;
+    private final int id;
+    private final int clientId;
+    private final String startDate;
+    private final String finishDate;
+    private final int durationMonths;
 
     public LongestProject(int id, int clientId, String startDate, String finishDate, int durationMonths) {
         this.id = id;
