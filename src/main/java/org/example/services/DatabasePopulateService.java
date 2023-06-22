@@ -18,21 +18,21 @@ public class DatabasePopulateService {
     public static void main(String[] args) {
         DatabasePopulateService populateService = new DatabasePopulateService();
         try {
-            populateService.populateWorkerTable();
-            populateService.populateClientTable();
-            populateService.populateProjectTable();
-            populateService.populateProjectWorkerTable();
+            populateService.populateWorkerTable("John Doe", Date.valueOf("1990-05-15"), "Senior", 8000);
+            populateService.populateClientTable("Emma Robert");
+            populateService.populateProjectTable(1, Date.valueOf("2022-01-01"), Date.valueOf("2022-03-31"));
+            populateService.populateProjectWorkerTable(1, 1);
         } finally {
             populateService.closeConnection();
         }
     }
 
-    public void populateWorkerTable() {
+    public void populateWorkerTable(String name, Date birthday, String level, int salary) {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_WORKER)) {
-            statement.setString(1, "John Doe");
-            statement.setDate(2, Date.valueOf("1990-05-15"));
-            statement.setString(3,"Senior");
-            statement.setInt(4, 8000);
+            statement.setString(1, name);
+            statement.setDate(2, birthday);
+            statement.setString(3,level);
+            statement.setInt(4, salary);
             statement.executeUpdate();
 
             System.out.println("Done!");
@@ -42,9 +42,9 @@ public class DatabasePopulateService {
         }
     }
 
-    public void populateClientTable() {
+    public void populateClientTable(String name) {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_CLIENT)) {
-            statement.setString(1, "Emma Robert");
+            statement.setString(1, name);
             statement.executeUpdate();
 
             System.out.println("Done!");
@@ -54,11 +54,11 @@ public class DatabasePopulateService {
         }
     }
 
-    public void populateProjectTable() {
+    public void populateProjectTable(int clientId, Date startDate, Date finishDate) {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_PROJECT)) {
-            statement.setInt(1, 1);
-            statement.setDate(2, Date.valueOf("2022-01-01"));
-            statement.setDate(3, Date.valueOf("2022-03-31"));
+            statement.setInt(1, clientId);
+            statement.setDate(2, startDate);
+            statement.setDate(3, finishDate);
             statement.executeUpdate();
 
             System.out.println("Done!");
@@ -68,10 +68,10 @@ public class DatabasePopulateService {
         }
     }
 
-    public void populateProjectWorkerTable() {
+    public void populateProjectWorkerTable(int projectId, int workerId) {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_PROJECT_WORKER)) {
-            statement.setInt(1, 1);
-            statement.setInt(2, 2);
+            statement.setInt(1, projectId);
+            statement.setInt(2, workerId);
             statement.executeUpdate();
 
             System.out.println("Done!");
@@ -88,6 +88,5 @@ public class DatabasePopulateService {
             throw new RuntimeException(e);
         }
     }
-
 }
 
