@@ -1,8 +1,8 @@
 package org.example.models;
 
 public class MaxSalaryCountWorker {
-    private String name;
-    private int salary;
+    private final String name;
+    private final int salary;
 
     public MaxSalaryCountWorker(String name, int salary) {
         this.name = name;

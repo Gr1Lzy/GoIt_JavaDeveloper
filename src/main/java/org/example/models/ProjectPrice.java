@@ -1,9 +1,9 @@
 package org.example.models;
 
 public class ProjectPrice {
-    private int ID;
-    private String startDate;
-    private String finishDate;
+    private final int ID;
+    private final String startDate;
+    private final String finishDate;
 
     public ProjectPrice(int ID, String startDate, String finishDate) {
         this.ID = ID;
