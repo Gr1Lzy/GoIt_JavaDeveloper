@@ -17,7 +17,7 @@ public class HttpStatusImageDownloader {
             Path targetPath = Paths.get(System.getProperty("user.home"), "IdeaProjects/Module7/src/pictures", code + ".jpg");
             Files.copy(in, targetPath, StandardCopyOption.REPLACE_EXISTING);
         } catch (FileNotFoundException e) {
-            throw new Exception(code +".png not found");
+            System.out.println(code +".png not found");
         }
     }
 }
