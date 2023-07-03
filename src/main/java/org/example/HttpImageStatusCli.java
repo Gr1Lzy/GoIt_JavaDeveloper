@@ -1,7 +1,5 @@
 package org.example;
 
-import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class HttpImageStatusCli {
@@ -11,13 +9,22 @@ public class HttpImageStatusCli {
         while(true) {
             try {
                 System.out.println("Enter HTTP status code");
-                int value = scanner.nextInt();
+                int value = read();
                 httpStatusImageDownloader.downloadStatusImage(value);
                 break;
             } catch (Exception e) {
                 System.out.println(e.getMessage()+"\n");
+                scanner.nextLine();
             }
         }
         scanner.close();
+    }
+
+    int read() {
+        try {
+            return scanner.nextInt();
+        } catch (Exception e) {
+            throw new RuntimeException("Please, enter an integer");
+        }
     }
 }
