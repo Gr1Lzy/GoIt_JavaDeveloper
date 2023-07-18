@@ -64,7 +64,7 @@ public class TimeServlet extends HttpServlet {
 
     private void setCookie(String value, HttpServletResponse resp) {
         Cookie cookie = new Cookie("lastTimezone", value);
-        System.out.println(cookie.getValue());
+        cookie.setMaxAge(-1);
         resp.addCookie(cookie);
     }
 
