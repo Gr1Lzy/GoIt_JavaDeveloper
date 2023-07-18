@@ -5,3 +5,4 @@
 - [Модуль 6. CRUD, міграції баз даних](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module6)
 - [Модуль 7. Клієнт-серверна архітектура, протокол HTTP](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module7)
 - [Модуль 8. Сервлети - основи](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module8)
+- [Модуль 9. Сервлети - Cookies, Templates, Front Controller](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module9)
