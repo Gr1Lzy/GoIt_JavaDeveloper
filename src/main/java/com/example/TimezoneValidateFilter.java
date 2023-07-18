@@ -1,4 +1,4 @@
-package com.example.module9;
+package com.example;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -11,29 +11,26 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.ZoneId;
 
-
-@WebFilter("/time")
+@WebFilter(value = "/time")
 public class TimezoneValidateFilter extends HttpFilter {
-
     @Override
-    protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        response.setContentType("text/html");
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        response.setContentType("text/html; charset=utf-8");
         String timezone = request.getParameter("timezone");
         if (timezone == null || isValidTimezone(timezone.replaceAll(" ", "+"))) {
             chain.doFilter(request, response);
         } else {
-
-            response.getWriter().write("ERROR 400" + "<br>" + "Invalid timezone");
+            response.getWriter().write("<h2>Invalid timezone</h2>" + "400");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().close();
         }
     }
 
-    private boolean isValidTimezone(String timezone) {
+    boolean isValidTimezone(String param) {
         try {
-            ZoneId.of(timezone);
+            ZoneId.of(param);
             return true;
-        } catch (DateTimeException e) {
+        } catch (DateTimeException e){
             return false;
         }
     }

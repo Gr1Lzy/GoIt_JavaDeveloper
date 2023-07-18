@@ -1,6 +1,5 @@
-package com.example.module9;
+package com.example;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -8,24 +7,23 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.templateresolver.FileTemplateResolver;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
-@WebServlet("/time")
+@WebServlet(value = "/time")
 public class TimeServlet extends HttpServlet {
-    private TemplateEngine engine;
+    TemplateEngine engine;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         engine = new TemplateEngine();
 
-        FileTemplateResolver resolver = new FileTemplateResolver();
-        resolver.setPrefix("./templates/");
+        ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
+        resolver.setPrefix("/templates/");
         resolver.setSuffix(".html");
         resolver.setTemplateMode("HTML5");
         resolver.setOrder(engine.getTemplateResolvers().size());
@@ -34,40 +32,44 @@ public class TimeServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String timezone = req.getParameter("timezone");
-        if (timezone == null) {
-            timezone = getTimezoneFromCookie(req);
-        } else {
-            timezone.replace(" ", "+");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("text/html");
+
+        String param = req.getParameter("timezone");
+
+        if (param == null) {
+            param = getCookie(req);
         }
-        setCookie(resp, "lastTimezone", timezone);
+        param = param.replaceAll(" ", "+");
 
-        String currentTime = ZonedDateTime.now(ZoneId.of(timezone))
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss 'UTC'X"));
 
-        resp.setContentType("text/html; charset=utf-8");
+        setCookie(param, resp);
+
         Context context = new Context();
-        context.setVariable("time", currentTime);
+        context.setVariable("time", getFormattedTimezone(param));
+
         engine.process("time", context, resp.getWriter());
         resp.getWriter().close();
     }
 
-    public String getTimezoneFromCookie(HttpServletRequest req) {
+    private String getCookie(HttpServletRequest req) {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
-            return Arrays.stream(cookies)
-                    .filter(cookie -> cookie.getName().equals("lastTimezone"))
-                    .map(Cookie::getValue)
-                    .findFirst()
-                    .orElse("UTC");
+            for (Cookie cookie : cookies) {
+                return cookie.getValue();
+            }
         }
         return "UTC";
     }
 
-    public void setCookie(HttpServletResponse resp, String name, String value) {
-        Cookie cookie = new Cookie(name, value);
-        cookie.setMaxAge(-1);
+    private void setCookie(String value, HttpServletResponse resp) {
+        Cookie cookie = new Cookie("lastTimezone", value);
+        System.out.println(cookie.getValue());
         resp.addCookie(cookie);
+    }
+
+    private String getFormattedTimezone(String value) {
+        return (ZonedDateTime.now(ZoneId.of(value)).
+                format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm 'UTC'X")));
     }
 }
