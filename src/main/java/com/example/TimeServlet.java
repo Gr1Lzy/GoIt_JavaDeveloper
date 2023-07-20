@@ -34,14 +34,12 @@ public class TimeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
-
         String param = req.getParameter("timezone");
 
         if (param == null) {
             param = getCookie(req);
         }
         param = param.replaceAll(" ", "+");
-
 
         setCookie(param, resp);
 
@@ -59,7 +57,7 @@ public class TimeServlet extends HttpServlet {
                 return cookie.getValue();
             }
         }
-        return "UTC";
+        return null;
     }
 
     private void setCookie(String value, HttpServletResponse resp) {
