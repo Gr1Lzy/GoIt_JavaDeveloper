@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 public class PlanetCrudService {
 
     private final SessionFactory sessionFactory;
@@ -62,6 +64,15 @@ public class PlanetCrudService {
             if (transaction != null) {
                 transaction.rollback();
             }
+        }
+    }
+
+    public List<Planet> getAll() {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("from Planet", Planet.class).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
