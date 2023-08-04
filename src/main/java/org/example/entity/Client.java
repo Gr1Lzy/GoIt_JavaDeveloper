@@ -19,7 +19,6 @@ public class Client {
     private String name;
 
     @OneToMany
-    @Column(nullable = false)
     @ToString.Exclude
     private Set<Ticket> tickets;
 }
