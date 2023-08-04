@@ -11,9 +11,10 @@ import lombok.Data;
 @Table(name = "Planet")
 public class Planet {
     @Id
+    @Column(nullable = false)
     private String id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 }
 

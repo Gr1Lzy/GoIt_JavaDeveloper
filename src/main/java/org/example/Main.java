@@ -2,8 +2,10 @@ package org.example;
 
 import org.example.entity.Client;
 import org.example.entity.Planet;
+import org.example.entity.Ticket;
 import org.example.service.ClientCrudService;
 import org.example.service.PlanetCrudService;
+import org.example.service.TicketCrudService;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,5 +28,8 @@ public class Main {
         planet.setId("IV");
         planet.setName("Jupiter");
         planetCrudService.add(planet);
+
+        TicketCrudService ticketCrudService = new TicketCrudService(hibernateUtil);
+        System.out.println(ticketCrudService.getAll());
     }
 }

@@ -3,6 +3,9 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
+
+import java.util.Set;
 
 @Entity
 @Data
@@ -12,8 +15,13 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
+
+    @OneToMany
+    @Column(nullable = false)
+    @ToString.Exclude
+    private Set<Ticket> tickets;
 }
 
 
