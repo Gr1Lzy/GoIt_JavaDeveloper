@@ -17,6 +17,10 @@ public class TicketCrudService {
     }
 
     public void add(Ticket ticket) {
+        if (ticket.getClient() != null || ticket.getFromPlanet() != null || ticket.getToPlanet() != null) {
+            throw new NullPointerException();
+        }
+
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
@@ -39,6 +43,9 @@ public class TicketCrudService {
     }
 
     public void updateById(Integer id, Ticket ticket) {
+        if (ticket.getClient() != null || ticket.getFromPlanet() != null || ticket.getToPlanet() != null) {
+            throw new NullPointerException();
+        }
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             ticket.setId(id);
