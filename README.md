@@ -8,3 +8,4 @@
 - [Модуль 9. Сервлети - Cookies, Templates, Front Controller](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module9)
 - [Модуль 10. ORM. Hibernate](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module10)
 - [Модуль 11. Hibernate Entity Mapping. HQL](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module11)
+- [Модуль 12. Spring Boot - Core](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module12)
