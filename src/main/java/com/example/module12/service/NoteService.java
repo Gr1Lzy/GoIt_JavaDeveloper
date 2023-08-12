@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
 @Service
 public class NoteService {
     private final Map<Long, Note> notes = new HashMap<>();
@@ -18,7 +17,7 @@ public class NoteService {
     }
 
     public Note add(Note note) {
-        note.setId(new Random().nextLong());
+        note.setId(Math.abs(new Random().nextLong()));
         notes.put(note.getId(), note);
         return note;
     }
