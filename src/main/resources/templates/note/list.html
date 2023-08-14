@@ -10,7 +10,10 @@
 
     <div class="position-relative">
         <div class="position-absolute top-0 start-0 m-3">
-            <a href="/note/create" class="btn btn-outline-success">Create Note</a>
+            <form th:action="@{/note/create}" method="post">
+                <input type="hidden" name="title" value="New Note">
+                <button type="submit" class="btn btn-outline-success">Create Note</button>
+            </form>
         </div>
     </div>
 

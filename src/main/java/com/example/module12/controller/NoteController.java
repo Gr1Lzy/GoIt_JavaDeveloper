@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class NoteController {
     private final NoteService noteService;
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     public RedirectView create(@ModelAttribute Note note) {
         noteService.add(note);
         return new RedirectView("list");
