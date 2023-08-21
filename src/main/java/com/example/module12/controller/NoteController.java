@@ -12,6 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequiredArgsConstructor
 @RequestMapping("/note")
 public class NoteController {
+
     private final NoteService noteService;
 
     @PostMapping("/create")
