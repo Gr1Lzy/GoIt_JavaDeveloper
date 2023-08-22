@@ -11,3 +11,4 @@
 - [Модуль 12. Spring Boot - Core](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module12)
 - [Модуль 13. Spring Boot - MVC](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module13)
 - [Модуль 14. Spring Boot - Data](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module14)
+- [Модуль 15. Spring Boot - Security](https://github.com/Gr1Lzy/GoIt_JavaDeveloper/tree/Module15)
